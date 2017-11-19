@@ -7,8 +7,6 @@
 typedef struct item {
     char petname[20];
     List petkinds;
-
-//    char petkind[20];
 } TreeItem;
 
 #define MAXITEMS 10

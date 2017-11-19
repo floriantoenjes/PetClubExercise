@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tree.h"
-#include "list.h"
 
 typedef struct pair {
     Trnode * parent;
@@ -224,27 +223,10 @@ static Pair SeekTreeItem(const TreeItem *pi, const Tree *ptree) {
 }
 
 static Pair SeekListItem(const TreeItem *pi, const ListItem *li, const Tree *ptree) {
-    Pair look;
-    look.parent = NULL;
-    look.child = ptree->root;
+    Pair look = SeekTreeItem(pi, ptree);
 
-    if (look.child == NULL) {
-        return look;
-    }
-
-    while (look.child != NULL) {
-        if (ToLeft(pi, &(look.child->item))) {
-            look.parent = look.child;
-            look.child = look.child->left;
-        } else if (ToRight(pi, &(look.child->item))) {
-            look.parent = look.child;
-            look.child = look.child->right;
-        } else {
-            if (GetListItem(li, &look.child->item.petkinds) == NULL) {
-                look.child = NULL;
-            }
-            break;
-        }
+    if (look.child != NULL && GetListItem(li, &look.child->item.petkinds) == NULL) {
+        look.child = NULL;
     }
 
     return look;
