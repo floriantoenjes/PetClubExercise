@@ -49,7 +49,7 @@ unsigned int ListItemCount(const List * plist) {
 bool AddListItem(ListItem item, List * plist) {
     Node * pnew;
 
-    pnew = (Node *) malloc(sizeof(Node));
+    pnew = (Node *) calloc(1, sizeof(Node));
     if (pnew == NULL) {
         return false;
     }
